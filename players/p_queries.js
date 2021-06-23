@@ -1,6 +1,6 @@
 // Queries for players.py
 
-exports.PLAYER_SHOW_INFO_QUERY = `query ($playerId: ID!) {
+const PLAYER_SHOW_INFO_QUERY = `query ($playerId: ID!) {
   player(id: $playerId) {
     gamerTag
     user {
@@ -19,24 +19,26 @@ exports.PLAYER_SHOW_INFO_QUERY = `query ($playerId: ID!) {
   }
 }`;
 
-exports.PLAYER_SHOW_TOURNAMENTS_QUERY = `query ($playerId: ID!, $page: Int!) {
+const PLAYER_SHOW_TOURNAMENTS_QUERY = `query ($playerId: ID!, $page: Int!) {
   player (id: $playerId) {
     user {
-      tournaments (query: {perPage: 64, page: $page}) {
+      tournaments (query: {perPage: $perPage, page: $page}) {
         nodes {
           name
-          slug
           id
           numAttendees
           countryCode
           startAt
+          images {
+            url
+          }
+          }
         }
       }
     }
-  }
-}`;
+  }`;
 
-exports.PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY = `query ($playerId: ID!, $playerName: String!, $videogameId: [ID!], $page: Int!) {
+const PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY = `query ($playerId: ID!, $playerName: String!, $videogameId: [ID!], $page: Int!) {
   player (id: $playerId) {
     user {
       tournaments (query: {perPage: 25, page: $page, filter: {videogameId: $videogameId}}) {
@@ -66,3 +68,9 @@ exports.PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY = `query ($playerId: ID!, $player
     }
   }
 }`;
+
+module.exports = {
+  PLAYER_SHOW_INFO_QUERY,
+  PLAYER_SHOW_TOURNAMENTS_QUERY,
+  PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY
+}

@@ -1,61 +1,32 @@
 const axios = require('axios');
 const URL = "https://api.smash.gg/gql/alpha";
 
-exports.run_query = async (query, variables, token) => {
+async function run_query (query, variables, token) {
     const data = {
         query: query,
         variables: variables
     }
 
-    const headers ={
+    const headers = {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         }
     }
 
-    try 
+    try
     {
-        const response = await axios.get(URL, data, headers);
-        console.log(response);
+        const response = await axios.post(URL, data, headers);
+        return response;
     }
     catch(error)
     {
-        console.error(error);
+        if(error.response.status === 429) {
+            throw new Error("Sending too many requests right now, try again in like 30 seconds -- this will usually fix the error");
+        }else if(error.response.status > 299 || error.response.status < 200) {
+            throw new Error(`error code: ${error.response.status}\nerror response: ${error.response.statusText}`)
+        }
     }
 }
 
-// const axios = require('axios');
-// const URL = "https://api.smash.gg/gql/alpha";
-
-// const token = '';
-// const tournament_name = "genesis-7";
-
-// memes();
-
-// async function memes() {
-//     try {
-//         let data = await axios.post(URL, {
-//             query: `query ($tourneySlug: String!) {
-//                 tournament(slug: $tourneySlug) {
-//                   events {
-//                     id
-//                     slug
-//                   }
-//                 }
-//             }`,
-//             variables: {
-//                 tourneySlug: tournament_name
-//             }
-//         }, {
-//             headers: {
-//                 'Content-Type': "application/json",
-//                 "Authorization": `Bearer ${token}`
-//             }
-//         });
-
-//         console.log(data.data.data.tournament.events);
-//     }catch(error) {
-//         console.log(error);
-//     }
-// }
+module.exports = { run_query };

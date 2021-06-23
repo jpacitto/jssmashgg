@@ -1,6 +1,5 @@
 // Queries for tournaments.py
-
-exports.PLAYER_ID_QUERY = `query EventEntrants($eventId: ID!, $name: String!) {
+const PLAYER_ID_QUERY = `query EventEntrants($eventId: ID!, $name: String!) {
     event(id: $eventId) {
     entrants(query: {
       page: 1
@@ -19,7 +18,7 @@ exports.PLAYER_ID_QUERY = `query EventEntrants($eventId: ID!, $name: String!) {
     }
     }`;
 
-exports.EVENT_ID_QUERY = `query ($tourneySlug: String!) {
+const EVENT_ID_QUERY = `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     events {
       id
@@ -28,7 +27,7 @@ exports.EVENT_ID_QUERY = `query ($tourneySlug: String!) {
   }
 }`;
 
-exports.ENTRANT_ID_QUERY = `query EventEntrants($eventId: ID!, $name: String!) {
+const ENTRANT_ID_QUERY = `query EventEntrants($eventId: ID!, $name: String!) {
     event(id: $eventId) {
     entrants(query: {
       page: 1
@@ -45,7 +44,7 @@ exports.ENTRANT_ID_QUERY = `query EventEntrants($eventId: ID!, $name: String!) {
     }
     }`
 
-exports.SHOW_QUERY = `query ($tourneySlug: String!) {
+const SHOW_QUERY = `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     id
     name
@@ -59,7 +58,7 @@ exports.SHOW_QUERY = `query ($tourneySlug: String!) {
 }`;
 
 
-exports.SHOW_WITH_BRACKETS_QUERY = `query ($tourneySlug: String!) {
+const SHOW_WITH_BRACKETS_QUERY = `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     id
     name
@@ -80,7 +79,7 @@ exports.SHOW_WITH_BRACKETS_QUERY = `query ($tourneySlug: String!) {
   }
 }`
 
-exports.SHOW_EVENTS_QUERY = `query ($tourneySlug: String!) {
+const SHOW_EVENTS_QUERY = `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     events {
       id
@@ -91,7 +90,7 @@ exports.SHOW_EVENTS_QUERY = `query ($tourneySlug: String!) {
   }
 }`;
 
-exports.SHOW_SETS_QUERY = `query EventSets($eventId: ID!, $page: Int!) {
+const SHOW_SETS_QUERY = `query EventSets($eventId: ID!, $page: Int!) {
   event(id: $eventId) {
     sets(page: $page, perPage: 25) {
       nodes {
@@ -129,7 +128,7 @@ exports.SHOW_SETS_QUERY = `query EventSets($eventId: ID!, $page: Int!) {
 }`
 
 
-exports.SHOW_ENTRANTS_QUERY = `query EventStandings($eventId: ID!, $page: Int!) {
+const SHOW_ENTRANTS_QUERY = `query EventStandings($eventId: ID!, $page: Int!) {
   event(id: $eventId) {
     id
     name
@@ -156,7 +155,7 @@ exports.SHOW_ENTRANTS_QUERY = `query EventStandings($eventId: ID!, $page: Int!) 
   }
 }`
 
-exports.SHOW_EVENT_BRACKETS_QUERY = `query ($tourneySlug: String!) {
+const SHOW_EVENT_BRACKETS_QUERY = `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     events {
       name
@@ -168,7 +167,7 @@ exports.SHOW_EVENT_BRACKETS_QUERY = `query ($tourneySlug: String!) {
   }
 }`
 
-exports.SHOW_ENTRANT_SETS_QUERY = `query EventSets($eventId: ID!, $entrantId: ID!, $page: Int!) {
+const SHOW_ENTRANT_SETS_QUERY = `query EventSets($eventId: ID!, $entrantId: ID!, $page: Int!) {
   event(id: $eventId) {
     sets(
       page: $page
@@ -202,7 +201,7 @@ exports.SHOW_ENTRANT_SETS_QUERY = `query EventSets($eventId: ID!, $entrantId: ID
   }
 }`
 
-exports.SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY = `query TournamentsByVideogame($page: Int!, $videogameId: [ID!], $after: Timestamp!, $before: Timestamp!) {
+const SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY = `query TournamentsByVideogame($page: Int!, $videogameId: [ID!], $after: Timestamp!, $before: Timestamp!) {
   tournaments(query: {
     perPage: 32
     page: $page
@@ -232,7 +231,7 @@ exports.SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY = `query TournamentsByVideogame($pag
   }
 }`
 
-exports.SHOW_LIGHTWEIGHT_RESULTS_QUERY = `query EventStandings($eventId: ID!, $page: Int!,) {
+const SHOW_LIGHTWEIGHT_RESULTS_QUERY = `query EventStandings($eventId: ID!, $page: Int!,) {
   event(id: $eventId) {
     standings(query: {
       perPage: 64,
@@ -249,7 +248,7 @@ exports.SHOW_LIGHTWEIGHT_RESULTS_QUERY = `query EventStandings($eventId: ID!, $p
   }
 }`
 
-exports.SHOW_BY_COUNTRY_QUERY = `query TournamentsByCountry($countryCode: String!, $page: Int!) {
+const SHOW_BY_COUNTRY_QUERY = `query TournamentsByCountry($countryCode: String!, $page: Int!) {
   tournaments(query: {
     perPage: 32,
     page: $page,
@@ -272,7 +271,7 @@ exports.SHOW_BY_COUNTRY_QUERY = `query TournamentsByCountry($countryCode: String
   }
 }`
 
-exports.SHOW_BY_STATE_QUERY = `query TournamentsByState($state: String!, $page: Int!) {
+const SHOW_BY_STATE_QUERY = `query TournamentsByState($state: String!, $page: Int!) {
   tournaments(query: {
     perPage: 32
     page: $page
@@ -293,7 +292,7 @@ exports.SHOW_BY_STATE_QUERY = `query TournamentsByState($state: String!, $page: 
   }
 }`
 
-exports.SHOW_BY_RADIUS_QUERY = `query ($page: Int, $coordinates: String!, $radius: String!) {
+const SHOW_BY_RADIUS_QUERY = `query ($page: Int, $coordinates: String!, $radius: String!) {
   tournaments(query: {
     page: $page
     perPage: 32
@@ -319,7 +318,7 @@ exports.SHOW_BY_RADIUS_QUERY = `query ($page: Int, $coordinates: String!, $radiu
   }
 }`
 
-exports.SHOW_PLAYERS_BY_SPONSOR = `query ($slug:String!, $sponsor: String!) {
+const SHOW_PLAYERS_BY_SPONSOR = `query ($slug:String!, $sponsor: String!) {
   tournament(slug: $slug) {
     participants(query: {
       filter: {
@@ -347,3 +346,23 @@ exports.SHOW_PLAYERS_BY_SPONSOR = `query ($slug:String!, $sponsor: String!) {
     }
   }
 }`
+
+
+module.exports = {
+  PLAYER_ID_QUERY,
+  EVENT_ID_QUERY,
+  ENTRANT_ID_QUERY,
+  SHOW_QUERY,
+  SHOW_WITH_BRACKETS_QUERY,
+  SHOW_EVENTS_QUERY,
+  SHOW_SETS_QUERY,
+  SHOW_ENTRANTS_QUERY,
+  SHOW_EVENT_BRACKETS_QUERY,
+  SHOW_ENTRANT_SETS_QUERY,
+  SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY,
+  SHOW_LIGHTWEIGHT_RESULTS_QUERY,
+  SHOW_BY_COUNTRY_QUERY,
+  SHOW_BY_STATE_QUERY,
+  SHOW_BY_RADIUS_QUERY,
+  SHOW_PLAYERS_BY_SPONSOR
+}
